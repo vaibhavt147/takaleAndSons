@@ -29,5 +29,5 @@ app.use(function(req,res){
 })
 
 app.listen(app.get('port'), function(){
-    console.log('Express server Started on http://localhost:'+app.get('port')+'; press Ctrl-C to terminate.');
+    console.log('Express Started on http://localhost:'+app.get('port')+'; press Ctrl-C to terminate.');
 })
