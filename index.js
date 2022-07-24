@@ -1,4 +1,5 @@
 var express = require('express');
+var formidable = require('formidable');
 var app = express();
 var handlebars = require('express3-handlebars').create({defaultLayout:'main'})
 var fortune = require('./lib/fortune')
@@ -18,6 +19,27 @@ app.get('/about', function(req,res){
 
 app.get('/newsletter', function(req,res){
     res.render('newsletter', {csrf: 'CSRF toekn goes here'});
+})
+
+app.get('/contest/vacation-photo', function(req,res){
+    var now = new Date();
+    res.render('/content/vacation-photo',{
+        year: now.getFullYear(), month: now.getMonth()
+    });
+})
+
+app.post('/contest/vacation-photo/:year/:month', function(req,res){
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files){
+        if(err){
+            return res.redirect(303, '/error');
+        }
+        console.log('received fields:');
+        console.log(files);
+        console.log('received files:');
+        console.log(files);
+        res.redirect(303, '/thank you');
+    })
 })
 
 app.post('/process', function(req,res){
